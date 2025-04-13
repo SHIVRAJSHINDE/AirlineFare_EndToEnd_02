@@ -7,6 +7,7 @@ from flask_cors import cross_origin
 import os
 
 from flask_app.predictionFile import ReceiveData
+
 import dagshub
 
 app = Flask(__name__)
@@ -18,9 +19,11 @@ if not dagshub_token:
 os.environ["MLFLOW_TRACKING_USERNAME"] = dagshub_token
 os.environ["MLFLOW_TRACKING_PASSWORD"] = dagshub_token
 
-mlflow.set_tracking_uri("https://dagshub.com/SHIVRAJSHINDE/AirlineFare_EndToEnd.mlflow")
+mlflow.set_tracking_uri("https://dagshub.com/SHIVRAJSHINDE/AirlineFare_EndToEnd_02.mlflow")        
 
-# dagshub.init(repo_owner='SHIVRAJSHINDE', repo_name='AirlineFare_EndToEnd', mlflow=True)
+# mlflow.set_tracking_uri("https://dagshub.com/SHIVRAJSHINDE/AirlineFare_EndToEnd_02.mlflow")
+# dagshub.init(repo_owner='SHIVRAJSHINDE', repo_name='AirlineFare_EndToEnd_02', mlflow=True)
+
 # os.environ['DAGSHUB_PAT'] = '6d430bde13e3d953e86bec39074f2fccd2b8595a'
 # tracking_uri = "http://localhost:5000"
 # mlflow.set_tracking_uri(tracking_uri)
