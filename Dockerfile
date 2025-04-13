@@ -1,7 +1,8 @@
 FROM python:3.11.7
 
 WORKDIR /app
-COPY flask_app/ /app/
+COPY flask_app/ /app/flask_app/
+
 COPY model/model_transform.pkl /app/model/model_transform.pkl
 COPY reports/experiment_info.json /app/reports/experiment_info.json
 RUN pip install -r requirements.txt
