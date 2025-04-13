@@ -62,9 +62,9 @@ jobs:
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
             docker pull ${{ secrets.DOCKER_HUB_USERNAME }}/a02:latest
-            docker stop a02 || true
-            docker rm a02 || true
-            docker run -p 80:5000 --name a02 \
+            docker stop newContainer || true
+            docker rm newContainer || true
+            docker run -p 80:5000 --name newContainer \
               -e DAGSHUB_PAT=${{ secrets.DAGSHUB_PAT }} \
               ${{ secrets.DOCKER_HUB_USERNAME }}/a02:latest  # Fixed spacing and slash
 
