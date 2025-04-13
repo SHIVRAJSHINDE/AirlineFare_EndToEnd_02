@@ -1,0 +1,16 @@
+artifact_uri: mlflow-artifacts:/0/2334eaf52346438c9291d454ce5eb7a9/artifacts
+deleted_time: 1739684068224
+end_time: null
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: deleted
+run_id: 2334eaf52346438c9291d454ce5eb7a9
+run_name: Ridge
+run_uuid: 2334eaf52346438c9291d454ce5eb7a9
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1739638034246
+status: 1
+tags: []
+user_id: SHIVRAJ SHINDE

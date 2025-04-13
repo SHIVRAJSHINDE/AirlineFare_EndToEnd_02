@@ -1,0 +1,36 @@
+      - name: Cache pip dependencies
+        uses: actions/cache@v3
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
+
+
+        - name: Debug Repository Structure
+        run: |
+          ls -R
+
+      - name: Debug Working Directory
+        run: |
+          echo "Current Working Directory: $PWD"
+
+
+
+
+  
+
+
+  Register_Model:
+    cmd: python src/Pipeline/s6_register_model.py
+    deps:
+    - reports/experiment_info.json
+    - src/Pipeline/s6_register_model.py
+
+  stage_Transition_Model:
+    cmd: python src/Pipeline/s7_stage_Transition.py
+    deps:
+    - reports/experiment_info.json
+    - src/Pipeline/s7_stage_Transition.py
+
+  

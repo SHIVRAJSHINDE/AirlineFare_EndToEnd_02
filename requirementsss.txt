@@ -1,0 +1,8 @@
+pandas
+pyyaml
+scikit-learn
+mlflow
+flask
+dagshub
+dvc
+-e .

@@ -1,0 +1,14 @@
+aliases: []
+creation_timestamp: 1743224871114
+current_stage: Archived
+description: ''
+last_updated_timestamp: 1743225016262
+name: Lasso
+run_id: 2377966c14054f6e96ca0ec48bb22678
+run_link: ''
+source: mlflow-artifacts:/0/2377966c14054f6e96ca0ec48bb22678/artifacts/model
+status: READY
+status_message: null
+storage_location: mlflow-artifacts:/0/2377966c14054f6e96ca0ec48bb22678/artifacts/model
+user_id: null
+version: 3

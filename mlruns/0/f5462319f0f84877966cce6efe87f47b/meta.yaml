@@ -1,0 +1,16 @@
+artifact_uri: mlflow-artifacts:/0/f5462319f0f84877966cce6efe87f47b/artifacts
+deleted_time: 1739684068225
+end_time: 1739638175532
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: deleted
+run_id: f5462319f0f84877966cce6efe87f47b
+run_name: Lasso
+run_uuid: f5462319f0f84877966cce6efe87f47b
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1739638166856
+status: 3
+tags: []
+user_id: SHIVRAJ SHINDE
