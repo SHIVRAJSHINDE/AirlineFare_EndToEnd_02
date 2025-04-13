@@ -66,7 +66,7 @@ jobs:
             docker rm a02 || true
             docker run -p 80:5000 --name a02 \
               -e DAGSHUB_PAT=${{ secrets.DAGSHUB_PAT }} \
-              ${{ secrets.DOCKER_HUB_USERNAME }}/emotions:latest  # Fixed spacing and slash
+              ${{ secrets.DOCKER_HUB_USERNAME }}/a02:latest  # Fixed spacing and slash
 
 
 
