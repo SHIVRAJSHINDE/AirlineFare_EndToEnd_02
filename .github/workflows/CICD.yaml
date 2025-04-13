@@ -52,3 +52,21 @@ jobs:
         if: success()
         run: |
           docker push ${{ secrets.DOCKER_HUB_USERNAME }}/a02:latest
+
+      - name: Deploy to EC2
+        if: success()
+        uses: appleboy/ssh-action@v0.1.5
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}  # Fixed typo: was 'usename'
+          key: ${{ secrets.EC2_SSH_KEY }}
+          script: |
+            docker pull ${{ secrets.DOCKER_HUB_USERNAME }}/emotions:latest
+            docker stop a02 || true
+            docker rm a02 || true
+            docker run -p 80:5000 --name a02 \
+              -e DAGSHUB_PAT=${{ secrets.DAGSHUB_PAT }} \
+              ${{ secrets.DOCKER_HUB_USERNAME }}/emotions:latest  # Fixed spacing and slash
+
+
+
