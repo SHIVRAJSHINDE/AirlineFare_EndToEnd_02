@@ -5,7 +5,7 @@ COPY flask_app/ /app/flask_app/
 
 COPY model/model_transform.pkl /app/model/model_transform.pkl
 COPY reports/experiment_info.json /app/reports/experiment_info.json
-RUN pip install -r requirements.txt
+RUN pip install -r flask_app/requirements.txt
 
 EXPOSE 5000
 CMD ["gunicorn","-b","0.0.0.0:5000","app:app"]
