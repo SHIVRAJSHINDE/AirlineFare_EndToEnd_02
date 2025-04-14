@@ -56,8 +56,6 @@ jobs:
       - name: Deploy to EC2
         if: success()
         uses: appleboy/ssh-action@v0.1.5
-        env:
-          DAGSHUB_PAT: ${{ secrets.DAGSHUB_PAT }}
         with:
           host: ${{ secrets.EC2_HOST }}
           username: ${{ secrets.EC2_USER }}  # Fixed typo: was 'usename'
@@ -66,7 +64,9 @@ jobs:
             docker pull ${{ secrets.DOCKER_HUB_USERNAME }}/a02:latest
             docker stop newContainer || true
             docker rm newContainer || true
-            docker run --name newContainer -p 8080:5000 ${{ secrets.DOCKER_HUB_USERNAME }}/a02:latest  # Fixed spacing and slash
+            docker run --name newContainer -p 8080:5000 \
+            -e DAGSHUB_PAT: ${{ secrets.DAGSHUB_PAT }} \
+            ${{ secrets.DOCKER_HUB_USERNAME }}/a02:latest  # Fixed spacing and slash
 
 
 
