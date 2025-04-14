@@ -8,3 +8,4 @@ numpy==2.2.3
 pandas==2.2.3
 psutil==7.0.0
 gunicorn  # corrected typo here
+-e .
