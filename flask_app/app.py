@@ -81,7 +81,9 @@ def predict():
         value = receiveData_Obj.execute_pipeline(df)
         prediction_value = model.predict(value)
         print("----------------------------------------------------")
+
         print(prediction_value)
+
         print("----------------------------------------------------")
         return render_template("prediction.html", prediction=prediction_value)
 
