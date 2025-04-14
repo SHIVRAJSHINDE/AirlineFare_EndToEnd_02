@@ -25,6 +25,7 @@ os.environ["MLFLOW_TRACKING_PASSWORD"] = dagshub_token
 
 mlflow.set_tracking_uri("https://dagshub.com/SHIVRAJSHINDE/AirlineFare_EndToEnd_02.mlflow")        
 
+
 # mlflow.set_tracking_uri("https://dagshub.com/SHIVRAJSHINDE/AirlineFare_EndToEnd_02.mlflow")
 # dagshub.init(repo_owner='SHIVRAJSHINDE', repo_name='AirlineFare_EndToEnd_02', mlflow=True)
 
