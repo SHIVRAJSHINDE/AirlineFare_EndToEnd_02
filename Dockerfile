@@ -4,7 +4,7 @@ WORKDIR /app
 COPY flask_app/ /app/
 
 COPY model/model_transform.pkl /app/model/model_transform.pkl
-COPY flask_app/reports/experiment_info.json /app/reports/experiment_info.json
+COPY reports/experiment_info.json /app/reports/experiment_info.json
 RUN pip install -r requirements.txt
 
 
