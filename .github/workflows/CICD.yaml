@@ -36,38 +36,20 @@ jobs:
           DAGSHUB_PAT: ${{ secrets.DAGSHUB_PAT }}
         run: python -m unittest tests/test_flask_app.py
 
-      - name: login to docker
-        if: success()
-        uses: docker/login-action@v2
-        with:
-          username: ${{ secrets.DOCKER_HUB_USERNAME }}
-          password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+      - name: Login to AWS ECR
+        run: | 
+          aws configure set aws_access_key_id ${{secrets.AWS_ACCESS_KEY_ID}}
+          aws configure set aws_secret_access_key ${{secrets.AWS_SECRET_ACCESS_KEY}}
+          aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 905418096737.dkr.ecr.ap-south-1.amazonaws.com
 
       - name: Build Docker Image
-        if: success()
         run: |
-          docker build -t ${{ secrets.DOCKER_HUB_USERNAME }}/a02:latest .
+          docker build new-docker-image-01 .
 
-      - name: Docker Push Image
-        if: success()
+      - name: Tag Docke Image
         run: |
-          docker push ${{ secrets.DOCKER_HUB_USERNAME }}/a02:latest
+          docker tag new-docker-image-01:latest 905418096737.dkr.ecr.ap-south-1.amazonaws.com/new-docker-image-01:latest
 
-      - name: Deploy to EC2
-        if: success()
-        uses: appleboy/ssh-action@v0.1.5
-        with:
-          host: ${{ secrets.EC2_HOST }}
-          username: ${{ secrets.EC2_USER }}  # Fixed typo: was 'usename'
-          key: ${{ secrets.EC2_SSH_KEY }}
-          script: |
-            docker pull ${{ secrets.DOCKER_HUB_USERNAME }}/a02:latest
-            docker stop newContainer || true
-            docker rm newContainer || true
-            docker run -p 8080:5000 --name newContainer \
-            -e DAGSHUB_PAT: ${{ secrets.DAGSHUB_PAT }} \
-            ${{ secrets.DOCKER_HUB_USERNAME }}/a02:latest  # Fixed spacing and slash
-
-
-
-
+      - name: Push Docker Imange to AWS ECR
+        run: |
+          docker push 905418096737.dkr.ecr.ap-south-1.amazonaws.com/new-docker-image-01:latest
