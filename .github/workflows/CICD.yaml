@@ -70,11 +70,6 @@ jobs:
             docker pull 905418096737.dkr.ecr.ap-south-1.amazonaws.com/new-docker-image-01:latest
             docker stop my-app || true
             docker rm my-app || true
-            docker run -d -p 8080:5000 -e DAGSHUB_PAT = ${{ secrets.DAGSHUB_PAT }} --name new-docker-image-01 905418096737.dkr.ecr.ap-south-1.amazonaws.com/new-docker-image-01:latest
+            docker run -d -p 80:5000 -e DAGSHUB_PAT = ${{ secrets.DAGSHUB_PAT }} --name new-docker-image-01 905418096737.dkr.ecr.ap-south-1.amazonaws.com/new-docker-image-01:latest
 
 
-
-
-
-
-            
