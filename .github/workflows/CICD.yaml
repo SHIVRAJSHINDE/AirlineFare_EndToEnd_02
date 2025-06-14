@@ -19,10 +19,10 @@ jobs:
         with: 
           python-version: '3.11.7'
 
-      - name: Install dependencies
-        run: |
-          pip install -r requirements.txt
-          pip install dvc mlflow  # Install DVC and MLflow explicitly if not in requirements.txt
+      #- name: Install dependencies
+      #  run: |
+      #    pip install -r requirements.txt
+      #    pip install dvc mlflow  # Install DVC and MLflow explicitly if not in requirements.txt
 
 
       - name: Run DVC pipeline
