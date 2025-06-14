@@ -89,7 +89,10 @@ class MLflowLoggerClass:
 
     def __init__(self):
         """Initialize MLflowLogger with the tracking URI."""
+        os.environ['DAGSHUB_PAT'] = 'c7739af80dc00d48cfbd465104124cf4ecd96802'
         dagshub_token = os.getenv("DAGSHUB_PAT")
+
+
         if not dagshub_token:
             raise EnvironmentError("DAGSHUB_PAT environment variable is not set")
 

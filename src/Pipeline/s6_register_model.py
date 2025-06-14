@@ -15,6 +15,7 @@ class ModelManagerRegister:
         self.info_path = info_path
         #self.client = mlflow.tracking.MlflowClient()
         self.client = MlflowClient()
+        os.environ['DAGSHUB_PAT'] = 'c7739af80dc00d48cfbd465104124cf4ecd96802'
 
         dagshub_token = os.getenv("DAGSHUB_PAT")
         if not dagshub_token:
