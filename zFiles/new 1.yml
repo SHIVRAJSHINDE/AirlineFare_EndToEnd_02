@@ -1,0 +1,145 @@
+Load Balancing:
+    Ec2
+    Create AMI using EC2
+    Launch New Ec2 using crated AMI
+
+    Target Group
+    Load Balancer
+
+
+Auto Scaling:
+    Ec2
+    AMI
+    lanuch template
+    Target Group
+    Load Balancer 
+    Auto scaling Group
+
+-----------------------------------------
+Target Group:
+Create target group:
+    Choose Target Type  : Instance
+    Target Group name   : target-01
+    Protocol            : HTTP
+    Port                : 80
+    IP address type     : IPV4
+    VPC                 : default
+    Protocol Version    : HTTP1
+    Health Check Path   : /
+        Next
+
+Add ec2 instance in Target Group:
+    Include as pending below:
+Create Target Group:
+    Add target group in Listeners and routing:
+
+
+
+-------------------------------------
+Load Balancer:
+
+Application Load Balancer:
+    name                : elb-01
+    Scheme              : Internet Facing
+    Load Balancer Ip    : IPV4
+    Network Mapping(VPC): default
+    Availability Zone   :	any two
+
+    Security Group      : same which you have selected for ec2 instance
+    Listeners and routing(port):
+        protocal        : HTTP
+        Port            : 80
+        Default action  : select already created target group
+Create Load Balancer:
+
+--------------------------------------------------
+Lanuch Template:
+
+name template			: tepmlate01
+version				    : v1
+Auto scaling guidance	: tick yes
+which AMI use?			: use the same which you already created
+instance type			: t2.micro
+key pair				: 
+security group			: 
+adavacne details:
+	Bash script user data	:write script
+	create launch template
+
+----------------------------------------------------------
+Auto scaling Group:
+
+Choose launch template:
+name				: asg-01
+launch template		: myTeampate
+version			    : 1
+    Next
+		
+instance type:		It will get selected automatically
+
+Network:
+VPC : 	it will get selected automatically
+region  :	select one region
+Availability Zones and subnets : select any two
+Availability Zone distribution - new. : Balanced best effort:
+    next
+
+load Balancing :    Attach to an existing load balancer
+Attach to an existing load balancer: Choose from your load balancer target groups
+Existing load balancer target groups: Select target Group already created
+VPC Lattice integration options: No VPC Lattice service
+
+
+Health checks:
+EC2 Health Check    :   Always enabled
+Turn on Elastic Load Balancing health checks:	tick yes
+	Next
+		
+Configure group and scaling:
+Desired capacity type : 2
+
+Scaling:
+Min desired capacity    :	2
+Max desired capacity    :	5
+Choose whether to use a target tracking policy  : Target tracking scaling policy
+    Scaling policy name : scaling-name-01
+    Metric type : Average CPU utilization
+    Target value : 50
+    Instance warmup : 300 sec
+
+Instance maintenance policy: No policy
+
+Additional capacity settings: Default
+    Next
+		
+Add Notification:
+    Next
+		
+Add Tags:
+    Next
+		
+Summanry:
+    Create Auto Scaling Groups
+
+--------------------------- : ----------------------
+
+
+Bash script for templat:
+--------------------------
+
+
+#!/bin/bash
+# Ensure Docker is running
+sudo systemctl start docker
+
+# Check if the container is already running or exists
+if [ "$(sudo docker ps -aq -f name=new_ecr)" ]; then
+    # Stop and remove the existing container
+    sudo docker stop new_ecr
+    sudo docker rm new_ecr
+fi
+
+# Run the Docker container
+sudo docker run -p 80:5000 -e DAGSHUB_PAT=c7739af80dc00d48cfbd465104124cf4ecd96802 --name new_ecr 905418096737.dkr.ecr.ap-south-1.amazonaws.com/new_ecr:latest
+
+

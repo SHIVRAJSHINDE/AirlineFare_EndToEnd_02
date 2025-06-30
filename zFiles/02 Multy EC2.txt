@@ -1,0 +1,52 @@
+
+sudo apt-get update && \
+sudo apt-get install -y docker.io && \
+sudo systemctl start docker && \
+sudo systemctl enable docker && \
+sudo apt-get update && \
+sudo apt-get install -y unzip curl && \
+curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip" && \
+unzip awscliv2.zip && \
+sudo ./aws/install
+
+-------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------
+
+sudo usermod -aG docker ubuntu
+exit
+
+aws configure
+Enter the IAM credentials
+then enter below command 
+
+aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 905418096737.dkr.ecr.ap-south-1.amazonaws.com
+
+
+pull docker image
+docker pull 905418096737.dkr.ecr.ap-south-1.amazonaws.com/new_ecr:latest
+
+docker run -p 80:5000 -e DAGSHUB_PAT=c7739af80dc00d48cfbd465104124cf4ecd96802 --name new_ecr 905418096737.dkr.ecr.ap-south-1.amazonaws.com/new_ecr:latest
+----------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------
+
+Create AMI
+using AMI you can create multieple EC2
+
+Create instance using AMI
+
+#!/bin/bash
+# Ensure Docker is running
+sudo systemctl start docker
+
+# Check if the container is already running or exists
+if [ "$(sudo docker ps -aq -f name=new_ecr)" ]; then
+    # Stop and remove the existing container
+    sudo docker stop new_ecr
+    sudo docker rm new_ecr
+fi
+
+# Run the Docker container
+sudo docker run -p 80:5000 -e DAGSHUB_PAT=c7739af80dc00d48cfbd465104124cf4ecd96802 --name new_ecr 905418096737.dkr.ecr.ap-south-1.amazonaws.com/new_ecr:latest
+
+--------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------

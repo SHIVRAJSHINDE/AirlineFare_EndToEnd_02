@@ -1,0 +1,7 @@
+Load Balancing
+
+Before creating Load Balancer 1st create Target Group and then Load Balancer
+
+
+
+

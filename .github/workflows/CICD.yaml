@@ -46,7 +46,7 @@ jobs:
         run: |
           docker build -t new_ecr_01 .
 
-      - name: Tag Docke Image
+      - name: Tag Docker Image
         run: |
           docker tag new_ecr_01:latest 905418096737.dkr.ecr.ap-south-1.amazonaws.com/new_ecr_01:latest
 

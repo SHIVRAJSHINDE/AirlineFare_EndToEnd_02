@@ -1,0 +1,113 @@
+For Autoscaling 1st crate the Lounch Template and based on the same 
+
+1) Create ec2 Instance
+2) Create AMI
+3) lanuch template
+4) target Group
+5) Load Balancer
+6) Auto scaling
+
+
+lanuch template
+	name template:			: tepmlate01
+	version:				: v1
+	Auto scaling guidance	: tick yes
+	which AMI use?			: use the same which you already created
+	instance type			: t2.micro
+	key pair				: 
+	security group			: 
+	adavacne details
+		Bash script user data
+			write script
+
+	create launch template
+
+
+Auto scaling
+	Auto scaling Group
+	Choose launch template
+		name				: asg-01
+		launch template		: myTeampate
+		version				: 1
+		Next
+		
+		instance type
+		It will get selected automatically
+
+	Network
+		VPC		: 	it will get selected automatically
+		region	:	select one region
+	Availability Zone distribution - new
+		Balanced best effort
+	next
+		
+	Load Balancing
+		load Balancing					:Attach new Load Balancer
+		Load balancer type				:Application Load Balancer
+		Laod Balancer Name				:lb-01
+		Load balancer scheme			:Internate Facing
+		Availability Zones and subnets: select min two
+
+		Listeners and routing:
+			Protocol					:HTTP
+			Port						:80
+			Default routing (forward to):Create New Group
+
+		Health checks:
+			EC2 Health Check: 								Always enabled
+			Turn on Elastic Load Balancing health checks:	tick yes
+		Next
+		
+	Configure group and scaling
+		Desired capacity type:2
+
+		Scaling:
+			Min desired capacity:	1
+			Max desired capacity:	5
+			Choose whether to use a target tracking policy: Target tracking scaling policy
+
+			Scaling policy name: scaling-name-01
+			Metric type: Average CPU utilization
+			Target value: 50
+			Instance warmup: 300 sec
+
+		Instance maintenance policy:
+			No policy
+
+		Additional capacity settings
+			Default
+
+		Next
+		
+		Add Notification
+		Next
+		
+		Add Tags
+		Next
+		
+		Summanry
+		Create Auto Scaling Groups
+	
+	
+
+
+--------------------------------------------------
+--------------------------------------------------
+Bash script for template
+
+#!/bin/bash
+# Ensure Docker is running
+sudo systemctl start docker
+
+# Check if the container is already running or exists
+if [ "$(sudo docker ps -aq -f name=new_ecr)" ]; then
+    # Stop and remove the existing container
+    sudo docker stop new_ecr
+    sudo docker rm new_ecr
+fi
+
+# Run the Docker container
+sudo docker run -p 80:5000 -e DAGSHUB_PAT=c7739af80dc00d48cfbd465104124cf4ecd96802 --name new_ecr 905418096737.dkr.ecr.ap-south-1.amazonaws.com/new_ecr:latest
+
+------------------------------------------------------------
+------------------------------------------------------------
