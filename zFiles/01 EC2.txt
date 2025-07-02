@@ -46,10 +46,12 @@ aws configure
 aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 905418096737.dkr.ecr.ap-south-1.amazonaws.com
 
 docker pull 905418096737.dkr.ecr.ap-south-1.amazonaws.com/new_ecr:latest
+docker pull 905418096737.dkr.ecr.ap-south-1.amazonaws.com/new_ecr:v1
 
 run command with dagshub
 docker run -p 80:5000 -e DAGSHUB_PAT=c7739af80dc00d48cfbd465104124cf4ecd96802 --name new_ecr 905418096737.dkr.ecr.ap-south-1.amazonaws.com/new_ecr:latest
 
+docker run -p 80:5000 -e DAGSHUB_PAT=c7739af80dc00d48cfbd465104124cf4ecd96802 --name new_ecr 905418096737.dkr.ecr.ap-south-1.amazonaws.com/new_ecr:v1
 
 
 --------------------------------------------------

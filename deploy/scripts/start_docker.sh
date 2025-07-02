@@ -1,9 +1,9 @@
 #!/bin/bash
 
-# Authenticate Docker to the AWS ECR registry
+# Authenticate Docker to the AWS ECR registry - Authentication
 aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 905418096737.dkr.ecr.ap-south-1.amazonaws.com
 
-# Pull the latest Docker image from your ECR repository
+# Pull the latest Docker image from your ECR repository - Pull Docker
 docker pull 905418096737.dkr.ecr.ap-south-1.amazonaws.com/new_ecr:latest
 
 # Stop and remove the old container (if any)

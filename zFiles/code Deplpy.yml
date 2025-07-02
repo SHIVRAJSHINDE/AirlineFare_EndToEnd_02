@@ -1,6 +1,6 @@
 IAM ROLE
-	create Iam for Ec2------------ Should Communicate with ECR Should Communicate with Code Deploy
-	create Iam for CodeDeploy----- relevant Code Deploy roles
+	Iam Role -Ec2 with ECR(AmazonEC2ContainerRegistryReadOnly) and Code Deploy(AmazonEC2RoleforAWSCodeDeploy)
+	EC2_ConnectionWith-ECRnCodeDeploy
 
 Launch template
 Target Group
@@ -10,7 +10,7 @@ Auto scaling Group
 			sudo service codedeploy-agent status
 
 IAM ROLE
-	create Iam for CodeDeploy----- relevant Code Deploy roles
+	Iam Role - CodeDeploy----- relevant Code Deploy roles
 
 
 Code Deplpoy
@@ -26,7 +26,6 @@ deplpy/scripts/start_docker.sh
 ----------------------------------------
 
 #!/bin/bash
-
 # Update the package list
 sudo apt-get update -y
 
@@ -34,7 +33,7 @@ sudo apt-get update -y
 sudo apt-get install ruby -y
 
 # Download the CodeDeploy agent installer from the correct region
-wget https://aws-codedeploy-ap-southeast-2.s3.ap-southeast-2.amazonaws.com/latest/install
+wget https://aws-codedeploy-ap-south-1.s3.ap-south-1.amazonaws.com/latest/install
 
 # Make the installer executable
 chmod +x ./install
