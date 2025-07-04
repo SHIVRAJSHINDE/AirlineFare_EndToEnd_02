@@ -1,0 +1,86 @@
+IAM ROLE
+	1) IAM ROLE - EC2-Rolefor-ECRnCodeDeploy 
+						(AmazonEC2ContainerRegistryReadOnly) and Code Deploy(AmazonEC2RoleforAWSCodeDeploy)
+	2) IAM ROLE
+			CodeDeployRole ----- Code Deploy roles
+
+Launch template
+Target Group
+Load Balancer
+Auto scaling Group
+		now go to ec2 ubuntu system and check if the codedeploy agent is working (use below command) 
+			sudo service codedeploy-agent status
+
+
+Code Deplpoy Application
+
+Create Deployment Group
+	Deployment group name : MyDockerAppASGDeploymentGroup
+	Service role					: CodeDeployRole
+	Choose how to deploy your application: In Place
+	Environment configuration
+		Amazon EC2 Auto Scaling groups: asg-01
+	Deployment settings
+		Deployment configuration:	CodeDeployDefault.OneAtATime
+	Load balancer
+		Application Load Balancer or Network Load Balancer: Target-01
+
+
+
+Create Deplpyment
+
+
+
+		appspec.yaml (stores the instruction for the deployment)
+				deplpy/scripts/install_dependancies.sh
+				deplpy/scripts/start_docker.sh
+
+
+--------------------------------------------------
+Lanuch Template:
+
+name template					: tepmlate01
+version				    		: v1
+Auto scaling guidance	: tick yes
+Application and OS Images (Amazon Machine Image) - required :
+QUICK Start						: ubuntu
+instance type					: t2.micro
+key pair							: 
+security group				: 
+adavacne details			:
+    1) use IAM Role (EC2-Rolefor-ECRnCodeDeploy)
+	  2) Bash script user data	:write script
+				using bash cript install 
+					-	codedeploy runner and 
+					-	agent liabrary
+	
+
+	create launch template
+
+
+----------------------------------------
+----------------------------------------
+
+#!/bin/bash
+# Update the package list
+sudo apt-get update -y
+
+# Install Ruby (required by the CodeDeploy agent)
+sudo apt-get install ruby -y
+
+# Download the CodeDeploy agent installer from the correct region
+wget https://aws-codedeploy-ap-south-1.s3.ap-south-1.amazonaws.com/latest/install
+
+# Make the installer executable
+chmod +x ./install
+
+# Install the CodeDeploy agent
+sudo ./install auto
+
+# Start the CodeDeploy agent
+sudo service codedeploy-agent start
+
+
+
+
+

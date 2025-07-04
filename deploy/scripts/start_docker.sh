@@ -12,3 +12,5 @@ sudo docker rm new_ecr || true
 
 # Run the new Docker container
 docker run -d -p 80:5000 -e DAGSHUB_PAT=c7739af80dc00d48cfbd465104124cf4ecd96802 --name new_ecr 905418096737.dkr.ecr.ap-south-1.amazonaws.com/new_ecr:latest
+
+

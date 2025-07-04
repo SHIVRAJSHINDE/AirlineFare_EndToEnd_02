@@ -11,11 +11,28 @@ Auto Scaling:
     ECR             - 
     Ec2             - 
     AMI             - create AMI and then launch new ec2 using new AMI
-    IAM Role        - EC2-ReadOnlyConnection-with-ECR
+    IAM Role        - EC2-ReadOnlyConnection-with-ECR  (AmazonEC2ContainerRegistryReadOnly)
     lanuch template -
     Target Group    -
     Load Balancer   -
     Auto scaling Group
+
+--------------------------------------------------
+Lanuch Template:
+
+name template			: tepmlate01
+version				    : v1
+Auto scaling guidance	: tick yes
+which AMI use?			: use the same which you already created
+instance type			: t2.micro
+key pair				: 
+security group			: 
+adavacne details:
+    use IAM Role (EC2-ReadOnlyConnection-with-ECR)
+	Bash script user data	:write script
+	create launch template
+
+
 -----------------------------------------
 Target Group:
 Create target group:
@@ -51,20 +68,6 @@ Application Load Balancer:
         Default action  : select already created target group
 Create Load Balancer:
 
---------------------------------------------------
-Lanuch Template:
-
-name template			: tepmlate01
-version				    : v1
-Auto scaling guidance	: tick yes
-which AMI use?			: use the same which you already created
-instance type			: t2.micro
-key pair				: 
-security group			: 
-adavacne details:
-	Bash script user data	:write script
-	create launch template
-
 ----------------------------------------------------------
 Auto scaling Group:
 
@@ -83,10 +86,10 @@ Availability Zones and subnets : select any two
 Availability Zone distribution - new. : Balanced best effort:
     next
 
-load Balancing :    Attach to an existing load balancer
-Attach to an existing load balancer: Choose from your load balancer target groups
-Existing load balancer target groups: Select target Group already created
-VPC Lattice integration options: No VPC Lattice service
+load Balancing     :    Attach to an existing load balancer
+Attach to an existing load balancer : Choose from your load balancer target groups
+Existing load balancer target groups : Select target Group already created
+VPC Lattice integration options : No VPC Lattice service
 
 
 Health checks:
@@ -122,23 +125,7 @@ Summanry:
 
 --------------------------- : ----------------------
 
----------------------------
-Bash script for templat:
---------------------------
 
-#!/bin/bash
-# Ensure Docker is running
-sudo systemctl start docker
-
-# Check if the container is already running or exists
-if [ "$(sudo docker ps -aq -f name=new_ecr)" ]; then
-    # Stop and remove the existing container
-    sudo docker stop new_ecr
-    sudo docker rm new_ecr
-fi
-
-# Run the Docker container
-sudo docker run -p 80:5000 -e DAGSHUB_PAT=c7739af80dc00d48cfbd465104124cf4ecd96802 --name new_ecr 905418096737.dkr.ecr.ap-south-1.amazonaws.com/new_ecr:latest
 
 ----------------------------------------------------------
 Bash Script- for latest ecr tamplate so auto scalling should be able to pull latest container from the ecr
@@ -166,3 +153,22 @@ sudo docker rm new_ecr || true
 docker run -p 80:5000 -e DAGSHUB_PAT=c7739af80dc00d48cfbd465104124cf4ecd96802 --name new_ecr 905418096737.dkr.ecr.ap-south-1.amazonaws.com/new_ecr:v1
 
 -------------------------------------------------------------
+
+
+---------------------------
+Bash script for templat:
+--------------------------
+
+#!/bin/bash
+# Ensure Docker is running
+sudo systemctl start docker
+
+# Check if the container is already running or exists
+if [ "$(sudo docker ps -aq -f name=new_ecr)" ]; then
+    # Stop and remove the existing container
+    sudo docker stop new_ecr
+    sudo docker rm new_ecr
+fi
+
+# Run the Docker container
+sudo docker run -p 80:5000 -e DAGSHUB_PAT=c7739af80dc00d48cfbd465104124cf4ecd96802 --name new_ecr 905418096737.dkr.ecr.ap-south-1.amazonaws.com/new_ecr:latest
