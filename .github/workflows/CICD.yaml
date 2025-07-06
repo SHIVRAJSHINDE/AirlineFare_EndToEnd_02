@@ -54,22 +54,31 @@ jobs:
         run: |
           docker push 905418096737.dkr.ecr.ap-south-1.amazonaws.com/new_ecr_01:latest
 
-      - name: Deploy to EC2
+      # Zip the required files
+      - name: Zip files for deployment
         if: success()
-        uses: appleboy/ssh-action@v0.1.5
-        with:
-            host: ${{ secrets.EC2_HOST }}
-            username: ${{ secrets.EC2_USER }}
-            key: ${{ secrets.EC2_SSH_KEY }}
-            scripts: |
-              aws configure set aws_access_key_id ${{secrets.AWS_ACCESS_KEY_ID}}
-              aws configure set aws_secret_access_key ${{secrets.AWS_SECRET_ACCESS_KEY}}
-              aws cofigure set default.region ap-south-1
-              aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password
-              aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 905418096737.dkr.ecr.ap-south-1.amazonaws.com
-              docker pull 905418096737.dkr.ecr.ap-south-1.amazonaws.com/new_ecr_01:latest
-              docker stop my-app || true
-              docker rm my-app || true
-              docker run -d -p 80:5000 -e DAGSHUB_PAT = ${{ secrets.DAGSHUB_PAT }} --name new_ecr_01 905418096737.dkr.ecr.ap-south-1.amazonaws.com/new_ecr_01:latest
+        run: |
+          zip -r deployment.zip appspec.yml deploy/scripts/install_dependencies.sh deploy/scripts/start_docker.sh
+
+      # Upload the ZIP file to S3
+      - name: Upload ZIP to S3
+        if: success()
+        run: |
+          aws s3 cp deployment.zip s3://campusx-codedeploy-bucket/deployment.zip
+
+      # Deploy to AWS CodeDeploy using the uploaded ZIP file
+      - name: Deploy to AWS CodeDeploy
+        if: success()
+        run: |
+          aws configure set aws_access_key_id ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws configure set aws_secret_access_key ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws deploy create-deployment \
+            --application-name MyDockerApp2 \
+            --deployment-config-name CodeDeployDefault.OneAtATime \
+            --deployment-group-name MyDockerAppASGDeploymentGroup \
+            --s3-location bucket=campusx-codedeploy-bucket,key=deployment.zip,bundleType=zip \
+            --file-exists-behavior OVERWRITE \
+            --region ap-south-1
+
 
 
