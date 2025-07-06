@@ -15,7 +15,7 @@ Auto Scaling:
     lanuch template -
     Target Group    -
     Load Balancer   -
-    Auto scaling Group
+    Auto scaling Group -
 
 --------------------------------------------------
 Lanuch Template:

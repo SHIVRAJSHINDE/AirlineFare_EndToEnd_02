@@ -1,18 +1,20 @@
+
 IAM ROLE
 	1) IAM ROLE - EC2-Rolefor-ECRnCodeDeploy 
 						(AmazonEC2ContainerRegistryReadOnly) and Code Deploy(AmazonEC2RoleforAWSCodeDeploy)
 	2) IAM ROLE
 			CodeDeployRole ----- Code Deploy roles
 
-Launch template
+Launch template 
 Target Group
 Load Balancer
 Auto scaling Group
 		now go to ec2 ubuntu system and check if the codedeploy agent is working (use below command) 
 			sudo service codedeploy-agent status
 
-
 Code Deplpoy Application
+	Application Name: MyDockerApp2
+	Compute platform: ec2/OnPremise
 
 Create Deployment Group
 	Deployment group name : MyDockerAppASGDeploymentGroup
@@ -26,11 +28,14 @@ Create Deployment Group
 		Application Load Balancer or Network Load Balancer: Target-01
 
 
-
 Create Deplpyment
+	Revision type:
+		My Application is stored in GitHub
+		Git hub token name
+		Repository Name
+		Commit ID				: Latest Commit ID 
 
-
-
+Create Below file in project
 		appspec.yaml (stores the instruction for the deployment)
 				deplpy/scripts/install_dependancies.sh
 				deplpy/scripts/start_docker.sh
