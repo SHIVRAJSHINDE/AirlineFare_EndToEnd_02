@@ -5,10 +5,19 @@ IAM ROLE
 	2) IAM ROLE
 			CodeDeployRole ----- Code Deploy roles
 
-Launch template 
+
+-Launch Template 
+-Target Group
+-Load Balancer
+-Auto Scaling Group
+-Code Deplpoy Application
+-Create Deployment Group
+-Create Deplpyment
+
+Launch Template 
 Target Group
 Load Balancer
-Auto scaling Group
+Auto Scaling Group
 		now go to ec2 ubuntu system and check if the codedeploy agent is working (use below command) 
 			sudo service codedeploy-agent status
 
@@ -17,15 +26,15 @@ Code Deplpoy Application
 	Compute platform: ec2/OnPremise
 
 Create Deployment Group
-	Deployment group name : MyDockerAppASGDeploymentGroup
-	Service role					: CodeDeployRole
-	Choose how to deploy your application: In Place
-	Environment configuration
-		Amazon EC2 Auto Scaling groups: asg-01
-	Deployment settings
-		Deployment configuration:	CodeDeployDefault.OneAtATime
-	Load balancer
-		Application Load Balancer or Network Load Balancer: Target-01
+		Deployment group name : MyDockerAppASGDeploymentGroup
+		Service role					: CodeDeployRole
+		Choose how to deploy your application: In Place
+		Environment configuration
+			Amazon EC2 Auto Scaling groups: asg-01
+		Deployment settings
+			Deployment configuration:	CodeDeployDefault.OneAtATime
+		Load balancer
+			Application Load Balancer or Network Load Balancer: Target-01
 
 
 Create Deplpyment
@@ -42,7 +51,7 @@ Create Below file in project
 
 
 --------------------------------------------------
-Lanuch Template:
+Lanuch Template				:
 
 name template					: tepmlate01
 version				    		: v1
