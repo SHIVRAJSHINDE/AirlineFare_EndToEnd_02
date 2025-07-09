@@ -3,16 +3,17 @@ IAM ROLE
 	1) IAM ROLE - EC2-Rolefor-ECRnCodeDeploy 
 						(AmazonEC2ContainerRegistryReadOnly) and Code Deploy(AmazonEC2RoleforAWSCodeDeploy)
 	2) IAM ROLE
-			CodeDeployRole ----- Code Deploy roles
+			CodeDeployRole ----- (AWSCodeDeployRole)
 
 
 -Launch Template 
 -Target Group
 -Load Balancer
 -Auto Scaling Group
--Code Deplpoy Application
--Create Deployment Group
--Create Deplpyment
+
+-Code Deplpoy Application : Done
+-Create Deployment Group	: Done
+-Create Deplopyment				: 
 
 Launch Template 
 Target Group
@@ -20,6 +21,7 @@ Load Balancer
 Auto Scaling Group
 		now go to ec2 ubuntu system and check if the codedeploy agent is working (use below command) 
 			sudo service codedeploy-agent status
+
 
 Code Deplpoy Application
 	Application Name: MyDockerApp2
@@ -97,4 +99,14 @@ sudo service codedeploy-agent start
 
 
 
-
+---------------------------------------
+generate tocken
+- settings
+- Developer settings
+- Personal Access Token
+- Token(classic)
+- Genearate New Token
+- Genearate New Token(classic)
+- Note (tOKEN NAME)
+- Select scopes
+		- repo
