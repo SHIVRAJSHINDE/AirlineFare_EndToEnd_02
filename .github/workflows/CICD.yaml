@@ -48,9 +48,9 @@ jobs:
 
 
       #  Tag Docker Image
-      - name: Tag Docker Image
-        run: |
-          docker tag new_ecr:latest 905418096737.dkr.ecr.ap-south-1.amazonaws.com/new_ecr:latest
+      #- name: Tag Docker Image
+      #  run: |
+      #    docker tag new_ecr:latest 905418096737.dkr.ecr.ap-south-1.amazonaws.com/new_ecr:latest
 
       - name: Push Docker Imange to AWS ECR
         run: |
