@@ -50,9 +50,9 @@ jobs:
       #  run: |
       #    docker tag new_ecr:latest 905418096737.dkr.ecr.ap-south-1.amazonaws.com/new_ecr:latest
 
-      #- name: Push Docker Imange to AWS ECR
-      #  run: |
-      #    docker push 905418096737.dkr.ecr.ap-south-1.amazonaws.com/new_ecr:latest
+      - name: Push Docker Imange to AWS ECR
+        run: |
+          docker push 905418096737.dkr.ecr.ap-south-1.amazonaws.com/new_ecr:latest
 
       # Zip the required files
       - name: Zip files for deployment
