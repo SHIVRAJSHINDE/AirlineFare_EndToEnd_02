@@ -78,7 +78,7 @@ jobs:
             --application-name MyDockerApp2 \
             --deployment-config-name CodeDeployDefault.OneAtATime \
             --deployment-group-name MyDockerAppASGDeploymentGroup \
-            --s3-location bucket=campusx-codedeploy-bucket,key=deployment.zip,bundleType=zip \
+            --s3-location bucket=cu-codedeploy-bucket,key=deployment.zip,bundleType=zip \
             --file-exists-behavior OVERWRITE \
             --region ap-south-1
 
