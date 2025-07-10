@@ -67,8 +67,8 @@ jobs:
           aws s3 cp deployment.zip s3://cu-codedeploy-bucket/deployment.zip
 
       # Deploy to AWS CodeDeploy using the uploaded ZIP file
-
       # Deploy to AWS CodeDeploy using the uploaded ZIP file
+
       - name: Deploy to AWS CodeDeploy
         if: success()
         run: |
