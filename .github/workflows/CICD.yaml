@@ -57,11 +57,11 @@ jobs:
           docker push 905418096737.dkr.ecr.ap-south-1.amazonaws.com/new_ecr:latest
 
       # Zip the required files
-      # Zip the required files
       - name: Zip files for deployment
         if: success()
         run: |
           zip -r deployment.zip appspec.yml deploy/scripts/install_dependencies.sh deploy/scripts/start_docker.sh
+
 
       # Upload the ZIP file to S3
       - name: Upload ZIP to S3
@@ -70,9 +70,7 @@ jobs:
           aws s3 cp deployment.zip s3://cu-codedeploy-bucket/deployment.zip
 
       # Deploy to AWS CodeDeploy using the uploaded ZIP file
-      # Deploy to AWS CodeDeploy using the uploaded ZIP file
-      # Deploy to AWS CodeDeploy using the uploaded ZIP file
-
+ 
       - name: Deploy to AWS CodeDeploy
         if: success()
         run: |

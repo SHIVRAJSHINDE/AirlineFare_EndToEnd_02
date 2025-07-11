@@ -6,14 +6,15 @@ IAM ROLE
 			CodeDeployRole ----- (AWSCodeDeployRole)
 
 
--Launch Template 
--Target Group
--Load Balancer
--Auto Scaling Group
+-Launch Template 		: will crate the instances(ec2)
+-Target Group		 		: will crate the instances(ec2)
+-Load Balancer			: Routing the traffic	
+-Auto Scaling Group	: addting or deleting the ec2 instances depeding on load.
 
 -Code Deplpoy Application : Done
 -Create Deployment Group	: Done
--Create Deplopyment				: 
+-Create Deplopyment				: In case of CICD do not create the said option.
+
 
 Launch Template 
 Target Group
